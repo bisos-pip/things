@@ -34,4 +34,4 @@ Example Usage
 
 ::
 
-    from  bisos.things import toIcm
+   from  bisos.things import toIcm
