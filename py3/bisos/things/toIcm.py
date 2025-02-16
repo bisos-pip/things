@@ -1,9 +1,16 @@
 # -*- coding: utf-8 -*-
+
+import sys
+print("NOTYET, 20250213 To be soted out.")
+sys.exit()
+
+
+
 """\
 * TODO *[Summary]* ::  A /library/ of TOICM: Things Oriented Interactive Commands Module.
 """
 
-####+BEGIN: bx:icm:python:top-of-file :partof "bystar" :copyleft "halaal+minimal"
+####+BEGIN: bx:cs:python:top-of-file :partof "bystar" :copyleft "halaal+minimal"
 """
 *  This file:/de/bx/nne/dev-py/pypi/pkgs/bisos/things/dev/bisos/things/new-toIcm.py :: [[elisp:(org-cycle)][| ]]
 ** is part of The Libre-Halaal ByStar Digital Ecosystem. http://www.by-star.net
@@ -33,8 +40,8 @@ __status__ = "Production"
 
 __credits__ = [""]
 
-####+BEGIN: bx:dblock:global:file-insert-cond :cond "./blee.el" :file "/libre/ByStar/InitialTemplates/update/sw/icm/py/icmInfo-mbNedaGpl.py"
-icmInfo = {
+####+BEGIN: bx:dblock:global:file-insert-cond :cond "./blee.el" :file "/libre/ByStar/InitialTemplates/update/sw/icm/py/csInfo-mbNedaGpl.py"
+csInfo = {
     'authors':         ["[[http://mohsen.1.banan.byname.net][Mohsen Banan]]"],
     'copyright':       "Copyright 2017, [[http://www.neda.com][Neda Communications, Inc.]]",
     'licenses':        ["[[https://www.gnu.org/licenses/agpl-3.0.en.html][Affero GPL]]", "Libre-Halaal Services License", "Neda Commercial License"],
@@ -44,7 +51,7 @@ icmInfo = {
 }
 ####+END:
 
-####+BEGIN: bx:icm:python:topControls 
+####+BEGIN: bx:cs:python:topControls 
 """
 *  [[elisp:(org-cycle)][|/Controls/| ]] :: [[elisp:(org-show-subtree)][|=]] [[elisp:(show-all)][Show-All]]  [[elisp:(org-shifttab)][Overview]]  [[elisp:(progn (org-shifttab) (org-content))][Content]] | [[file:Panel.org][Panel]] | [[elisp:(blee:ppmm:org-mode-toggle)][Nat]] | [[elisp:(bx:org:run-me)][Run]] | [[elisp:(bx:org:run-me-eml)][RunEml]] | [[elisp:(delete-other-windows)][(1)]] | [[elisp:(progn (save-buffer) (kill-buffer))][S&Q]]  [[elisp:(save-buffer)][Save]]  [[elisp:(kill-buffer)][Quit]] [[elisp:(org-cycle)][| ]]
 ** /Version Control/ ::  [[elisp:(call-interactively (quote cvs-update))][cvs-update]]  [[elisp:(vc-update)][vc-update]] | [[elisp:(bx:org:agenda:this-file-otherWin)][Agenda-List]]  [[elisp:(bx:org:todo:this-file-otherWin)][ToDo-List]]
@@ -59,31 +66,11 @@ icmInfo = {
 """
 
 
-####+BEGIN: bx:icm:python:section :title "ContentsList"
+####+BEGIN: bx:cs:python:section :title "ContentsList"
 """
 *  [[elisp:(beginning-of-buffer)][Top]] ################ [[elisp:(blee:ppmm:org-mode-toggle)][Nat]] [[elisp:(delete-other-windows)][(1)]]    *ContentsList*  [[elisp:(org-cycle)][| ]]  [[elisp:(org-show-subtree)][|=]] 
 """
 ####+END:
-
-####+BEGIN: bx:dblock:python:func :funcName "insertPathForImports" :funcType "FrameWrk" :retType "none" :deco "" :argsList "path"
-"""
-*  [[elisp:(org-cycle)][| ]]  [[elisp:(org-show-subtree)][|=]] [[elisp:(show-children)][|V]] [[elisp:(org-tree-to-indirect-buffer)][|>]] [[elisp:(blee:ppmm:org-mode-toggle)][Nat]] [[elisp:(beginning-of-buffer)][Top]] [[elisp:(delete-other-windows)][(1)]] || Func-FrameWrk  :: /insertPathForImports/ retType=none argsList=(path)  [[elisp:(org-cycle)][| ]]
-"""
-def insertPathForImports(
-    path,
-):
-####+END:
-    """
-** Extends Python imports path with  ../lib/python
-"""
-    import os
-    import sys
-    absolutePath = os.path.abspath(path)    
-    if os.path.isdir(absolutePath):
-        sys.path.insert(1, absolutePath)
-
-insertPathForImports("../lib/python/")
-
 
 
 ####+BEGIN: bx:dblock:python:icmItem :itemType "=Imports=" :itemTitle "*IMPORTS*"
@@ -92,21 +79,25 @@ insertPathForImports("../lib/python/")
 """
 ####+END:
 
+####+BEGINNOT: b:py3:cs:framework/imports :basedOn "classification"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CsFrmWrk   [[elisp:(outline-show-subtree+toggle)][||]] *Imports* =Based on Classification=cs-mu=
+#+end_org """
+from bisos import b
+from bisos.b import cs
+from bisos.b import b_io
+from bisos.common import csParam
+
+import collections
+####+END:
+
+
 import os
 import collections
 import enum
 
 import pexpect
 # Not using import pxssh -- because we need to custom manipulate the prompt
-
-# NOTYET, should become a dblock with its own subItem
-from unisos import ucf
-from unisos import icm
-
-G = icm.IcmGlobalContext()
-G.icmLibsAppend = __file__
-G.icmCmndsLibsAppend = __file__
-# NOTYET DBLOCK Ends -- Rest of bisos libs follow;
 
 
 ####+BEGIN: bx:dblock:python:section :title "Library Description (Overview)"
@@ -115,23 +106,23 @@ G.icmCmndsLibsAppend = __file__
 """
 ####+END:
 
-####+BEGIN: bx:dblock:python:icm:cmnd:classHead :modPrefix "new" :cmndName "bxpBaseDir_LibOverview" :parsMand "" :parsOpt "" :argsMin "0" :argsMax "3" :asFunc "" :interactiveP ""
+####+BEGIN: b:py3:cs:cmnd/classHead :modPrefix "new" :cmndName "bxpBaseDir_LibOverview" :parsMand "" :parsOpt "" :argsMin 0 :argsMax 3 :pyInv ""
 """
 *  [[elisp:(org-cycle)][| ]]  [[elisp:(org-show-subtree)][|=]] [[elisp:(show-children)][|V]] [[elisp:(org-tree-to-indirect-buffer)][|>]] [[elisp:(blee:ppmm:org-mode-toggle)][Nat]] [[elisp:(beginning-of-buffer)][Top]] [[elisp:(delete-other-windows)][(1)]] || ICM-Cmnd       :: /bxpBaseDir_LibOverview/ parsMand= parsOpt= argsMin=0 argsMax=3 asFunc= interactive=  [[elisp:(org-cycle)][| ]]
 """
-class toIcm_LibOverview(icm.Cmnd):
+class toIcm_LibOverview(cs.Cmnd):
     cmndParamsMandatory = [ ]
     cmndParamsOptional = [ ]
     cmndArgsLen = {'Min': 0, 'Max': 3,}
 
-    @icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
     def cmnd(self,
         interactive=False,        # Can also be called non-interactively
         argsList=None,         # or Args-Input
     ):
-        G = IcmGlobalContext()
+        G = cs.globalContext.get()
         cmndOutcome = self.getOpOutcome()
-        if interactive:
+        if rtInv.outs:
             if not self.cmndLineValidate(outcome=cmndOutcome):
                 return cmndOutcome
             effectiveArgsList = G.icmRunArgsGet().cmndArgs
@@ -139,7 +130,7 @@ class toIcm_LibOverview(icm.Cmnd):
             effectiveArgsList = argsList
 
         callParamsDict = {}
-        if not icm.cmndCallParamsValidate(callParamsDict, interactive, outcome=cmndOutcome):
+        if not cs.cmndCallParamsValidate(callParamsDict, interactive, outcome=cmndOutcome):
             return cmndOutcome
 ####+END:
 
@@ -170,7 +161,7 @@ This module is part of BISOS and its primary documentation is in  http://www.by-
         for each in effectiveArgsList:
             if each in cmndArgsValid:
                 print(each)
-                if interactive:
+                if rtInv.outs:
                     #print( str( __doc__ ) )  # This is the Summary: from the top doc-string
                     #version(interactive=True)
                     exec("""print({})""".format(each))
@@ -290,12 +281,12 @@ TERMINAL_TYPE = 'vt100'
 SSH_NEWKEY = '(?i)are you sure you want to continue connecting'
 
 
-@icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def doSendline(connection, *v, **k):
     """Returns connection.sendline(*v, **k)"""
     return connection.sendline(*v, **k)
 
-@icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def doExpect(connection, *v, **k):
      return connection.expect(*v, **k)
 
@@ -404,7 +395,7 @@ class TARGET_Proxy_Linux(object):
                  self.targetFqdnValue = self.targetFqdn.parValueGetLines()[0]
 
          paramsDict = self.readFileParDictFrom("params/config/cur")
-         icm.TM_here(paramsDict)
+         b_io.tm.here(paramsDict)
          theseParams = ConfigParams(paramsDict=paramsDict)
          return theseParams
 
@@ -443,43 +434,43 @@ class TARGET_Proxy_Linux(object):
 
 
          if not accessParams.accessMethodValue == 'ssh':
-             # EH_problem()
+             # b_io.eh.problem()
              pass
 
 
          try:
-             icm.TM_here(format('ssh -l %s %s' %(
+             b_io.tm.here(format('ssh -l %s %s' %(
                  accessParams.userNameValue,
                  accessParams.targetFqdnValue)))
              connection = pexpect.spawn('ssh -l %s %s'%(
                  accessParams.userNameValue,
                  accessParams.targetFqdnValue))
          except Exception as e:
-             icm.TM_here('EXCEPTION: ' + str(e) )
+             b_io.tm.here('EXCEPTION: ' + str(e) )
              raise
 
          try:
-             icm.TM_here('pexpect -- waiting for COMMAND_PROMPT=' + COMMAND_PROMPT)
+             b_io.tm.here('pexpect -- waiting for COMMAND_PROMPT=' + COMMAND_PROMPT)
              i = connection.expect([pexpect.TIMEOUT, SSH_NEWKEY, COMMAND_PROMPT, '(?i)password'])
          except Exception as e:
-             icm.TM_here('EXCEPTION: ' + str(e) )
+             b_io.tm.here('EXCEPTION: ' + str(e) )
              raise
 
 
-         #icm.TM_here()
+         #b_io.tm.here()
 
          if i == 0: # Timeout
-             icm.TM_here()
+             b_io.tm.here()
              print('ERROR! could not login with SSH. Here is what SSH said:')
              print(connection.before, connection.after)
              print(str(connection))
              sys.exit (1)
          if i == 1: # In this case SSH does not have the public key cached.
-             icm.TM_here()
+             b_io.tm.here()
              connection.sendline ('yes')
              connection.expect ('(?i)password')
          if i == 2:
-             icm.TM_here("Auto Login -- Public Key")             
+             b_io.tm.here("Auto Login -- Public Key")             
              # This may happen if a public key was setup to automatically login.
              # But beware, the COMMAND_PROMPT at this point is very trivial and
              # could be fooled by some output in the MOTD or login message.
@@ -488,19 +479,19 @@ class TARGET_Proxy_Linux(object):
              connection.sendline (' ')           
              return connection             
          if i == 3:
-             icm.TM_here(format('Received: ' + connection.before + connection.after))
-             icm.TM_here('Sending: Passwd')             
-             #icm.TM_here('Sending: ' + accessParams.passwordValue )
+             b_io.tm.here(format('Received: ' + connection.before + connection.after))
+             b_io.tm.here('Sending: Passwd')             
+             #b_io.tm.here('Sending: ' + accessParams.passwordValue )
              connection.sendline(accessParams.passwordValue)
              # Now we are either at the command prompt or
              # the login process is asking for our terminal type.
-             icm.LOG_here("Connected ....")
+             b_io.tm.here("Connected ....")
              return connection
 
      def connectInteractive(self):
          """
          """
-         icm.TM_here('NOTYET')
+         b_io.tm.here('NOTYET')
 
      def runCommand(self, connection, cmndLine):
          """Execute the line and return the result (stdout) as a list of lines
@@ -520,22 +511,22 @@ class TARGET_Proxy_Linux(object):
      def staticsSet(self):
          """
          """
-         icm.TM_here('NOTYET')
+         b_io.tm.here('NOTYET')
 
      def staticsPush(self):
          """
          """
-         icm.TM_here('NOTYET')
+         b_io.tm.here('NOTYET')
 
      def staticsPull(self):
          """
          """
-         icm.TM_here('NOTYET')
+         b_io.tm.here('NOTYET')
 
      def staticsVerify(self):
          """
          """
-         icm.TM_here('NOTYET')
+         b_io.tm.here('NOTYET')
 
 
 """
@@ -636,148 +627,148 @@ class Target_Param_List(object):
 """
 
 
-#@icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+#@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def targetParamListCommonArgs(parser):
     """Module Specific Extra Arguments.
     """
 
-    icmParams = icm.ICM_ParamDict()
+    csParams = cs.CmndParamDict()
 
-    icmParams.parDictAdd(
+    csParams.parDictAdd(
         parName='empnaPkg',
         parDescription="Empna Detection And Notification Label",
         parDataType=None,
         parDefault=None,
         parChoices=None,
-        parScope=icm.ICM_ParamScope.TargetParam,
+        parScope=icm.CmndParamScope.TargetParam,
         argparseShortOpt=None,
         argparseLongOpt='--empnaPkg',
         )
 
-    icmParams.parDictAdd(
+    csParams.parDictAdd(
         parName='dateVer',
         parDescription="",
         parDataType=None,
         parDefault=None,
         parChoices=None,
-        parScope=icm.ICM_ParamScope.TargetParam,
+        parScope=icm.CmndParamScope.TargetParam,
         argparseShortOpt=None,
         argparseLongOpt='--dateVer',
         )
 
-    icmParams.parDictAdd(
+    csParams.parDictAdd(
         parName='collective',
         parDescription='Collective. Eg, int, ir, us, fr',
         parDataType=None,
         parDefault=None,
         parChoices=None,
-        parScope=icm.ICM_ParamScope.TargetParam,
+        parScope=icm.CmndParamScope.TargetParam,
         argparseShortOpt=None,
         argparseLongOpt='--collective',
         )
 
-    icmParams.parDictAdd(
+    csParams.parDictAdd(
         parName='district',
         parDescription="District. Eg, libreCenter",
         parDataType=None,
         parDefault=None,
         parChoices=None,
-        parScope=icm.ICM_ParamScope.TargetParam,
+        parScope=icm.CmndParamScope.TargetParam,
         argparseShortOpt=None,
         argparseLongOpt='--district',
         )
 
-    icmParams.parDictAdd(
+    csParams.parDictAdd(
         parName='targetType',
         parDescription="Target Type.",
         parDataType=None,
         parDefault=None,
         parChoices=None,
-        parScope=icm.ICM_ParamScope.TargetParam,
+        parScope=icm.CmndParamScope.TargetParam,
         argparseShortOpt=None,
         argparseLongOpt='--targetType',
         )
 
-    icmParams.parDictAdd(
+    csParams.parDictAdd(
         parName='targetId',
         parDescription="Target ID.",
         parDataType=None,
         parDefault=None,
         parChoices=None,
-        parScope=icm.ICM_ParamScope.TargetParam,
+        parScope=icm.CmndParamScope.TargetParam,
         argparseShortOpt=None,
         argparseLongOpt='--targetId',
         )
 
 
-    icmParams.parDictAdd(
+    csParams.parDictAdd(
         parName='targetFqdn',
         parDescription="Host name or IP Address",
         parDataType=None,
         parDefault=None,
         parChoices=None,
     #parCmndApplicability=['all'],
-        parScope=icm.ICM_ParamScope.TargetParam,
+        parScope=icm.CmndParamScope.TargetParam,
         argparseLongOpt='--targetFqdn',
         )
 
-    icmParams.parDictAdd(
+    csParams.parDictAdd(
         parName='accessMethod',
         parDescription="Connect using the indicated accessMethod.",
         parDataType=None,
         parDefault=None,
         parChoices=None,
-        parScope=icm.ICM_ParamScope.TargetParam,
+        parScope=icm.CmndParamScope.TargetParam,
         argparseLongOpt='--accessMethod',
         )
 
-    icmParams.parDictAdd(
+    csParams.parDictAdd(
         parName='userName',
         parDescription="Connect using the indicated userName.",
         parDataType=None,
         parDefault=None,
         parChoices=None,
-        parScope=icm.ICM_ParamScope.TargetParam,
+        parScope=icm.CmndParamScope.TargetParam,
         argparseShortOpt='-u',
         argparseLongOpt='--userName',
         )
 
-    icmParams.parDictAdd(
+    csParams.parDictAdd(
         parName='password',
         parDescription="Use the indicated password to authenticate the connection.",
         parDataType=None,
         parDefault=None,
         parChoices=None,
-        parScope=icm.ICM_ParamScope.TargetParam,
+        parScope=icm.CmndParamScope.TargetParam,
         argparseShortOpt='-p',
         argparseLongOpt='--password',
         )
       
-    icm.argsparseBasedOnIcmParams(parser, icmParams)
+    cs.argsparseBasedOnCsParams(parser, csParams)
 
     return
 
 
-@icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def targetParamSelectCommonExamples(loadTargetArgs="",
                                   loadParamsArgs="",
                                   ):
     """  """
-    icm.cmndExampleMenuChapter('*Common: Select TargetList and Target Parameters*')
+    cs.examples.menuChapter('*Common: Select TargetList and Target Parameters*')
 
     icm.cmndExampleExternalCmndItem("""./empnaProc.sh""",
                                     comment=""" # Used For Selecting Current Target List""")
     icm.cmndExampleExternalCmndItem("""./empnaProc.sh -i effectiveLisLs""")
                                   
 
-@icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def targetParamListCommonExamples(loadTargetArgs="",
                                   loadParamsArgs="",
                                   ):
     """  """
-    icm.cmndExampleMenuChapter('*Common: TargetList And ParameterList and TICMO (Output) Information*')       
+    cs.examples.menuChapter('*Common: TargetList And ParameterList and TICMO (Output) Information*')       
 
-    icm.cmndExampleMenuSection('targetsAccessListShow -- Based on targetsAccessListGet')   
+    cs.examples.menuSection('targetsAccessListShow -- Based on targetsAccessListGet')   
 
     thisCmndAction= " -i empna.targetsAccessListShow"
     icm.cmndExampleMenuItem(format (loadTargetArgs + thisCmndAction),
@@ -787,7 +778,7 @@ def targetParamListCommonExamples(loadTargetArgs="",
     icm.cmndExampleMenuItem(format (loadTargetArgs + thisCmndAction),
                             verbosity='none')                            
 
-    icm.cmndExampleMenuSection('targetParametersListShow -- Based on targetParametersListGet')   
+    cs.examples.menuSection('targetParametersListShow -- Based on targetParametersListGet')   
 
     thisCmndAction= " -i empna.targetParamsListShow"
     icm.cmndExampleMenuItem(format (loadTargetArgs + loadParamsArgs + thisCmndAction),
@@ -797,7 +788,7 @@ def targetParamListCommonExamples(loadTargetArgs="",
     icm.cmndExampleMenuItem(format (loadTargetArgs + loadParamsArgs + thisCmndAction),
                             verbosity='none')                            
 
-    icm.cmndExampleMenuSection("""TICMO: Target Path Base -- Give A Target's DN, Produce its Path Base""")
+    cs.examples.menuSection("""TICMO: Target Path Base -- Give A Target's DN, Produce its Path Base""")
 
     thisCmndAction=" -i empna.targetBaseGet"
     targetSpecOptions=" --collective int --district libreCenter --targetType bxp --targetId localhost"
@@ -814,11 +805,11 @@ def targetParamListCommonExamples(loadTargetArgs="",
 **      ====[[elisp:(org-cycle)][Fold]]==== ticmoBaseCreate
 """
 
-@icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def ticmoBaseCreate(ticmoBase=None):
     """  """
     if ticmoBase == None:
-        return icm.EH_problem_usageError()    
+        return b_io.eh.problem_usageError()    
 
     parFullPath=ticmoBase
     try: os.makedirs( parFullPath, 0o775 )
@@ -833,7 +824,7 @@ def ticmoBaseCreate(ticmoBase=None):
 **      ====[[elisp:(org-cycle)][Fold]]==== ticmoBxpOutputsBaseGet
 """
 
-@icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def ticmoBxpOutputsBaseGetCmnd(interactive=False,
                            targetType="bxp",
                            collective=None,
@@ -844,15 +835,15 @@ def ticmoBxpOutputsBaseGetCmnd(interactive=False,
     except StopIteration:  return
                            
     if targetType != "bxp":
-        return icm.EH_problem_usageError("Unsupported Target Type: " + targetType)
+        return b_io.eh.problem_usageError("Unsupported Target Type: " + targetType)
 
-    G = icm.IcmGlobalContext()
+    G = cs.globalContext.get()
     icmRunArgs = G.icmRunArgsGet()
     #icmParamDict = G.icmParamDictGet()
 
     if interactive == True:
         if not len(icmRunArgs.cmndArgs) == 0:
-            try:  icm.EH_runTime('Bad Number Of cmndArgs')
+            try:  b_io.eh.runTime('Bad Number Of cmndArgs')
             except RuntimeError:  return
 
         if icmRunArgs.collective:
@@ -876,7 +867,7 @@ def ticmoBxpOutputsBaseGetCmnd(interactive=False,
 **      ====[[elisp:(org-cycle)][Fold]]==== ticmoBxpOutputsBaseGet
 """
 
-@icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def ticmoBxpOutputsBaseGet(targetType="bxp",
                            targetElem=None,
                            collective=None,
@@ -884,7 +875,7 @@ def ticmoBxpOutputsBaseGet(targetType="bxp",
                            targetId=None):
     """  """
     if targetType != "bxp":
-        return icm.EH_problem_usageError("Unsupported Target Type: " + targetType)
+        return b_io.eh.problem_usageError("Unsupported Target Type: " + targetType)
 
     if targetElem:
         # NOTYET, Get collectivem district, ... from targetElem
@@ -903,7 +894,7 @@ def ticmoBxpOutputsBaseGet(targetType="bxp",
 *      ======[[elisp:(org-cycle)][Fold]]====== targetsAccessListShow (CMND)
 """
 
-@icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def targetsAccessListShow(interactive=False,
                           targetFqdn=None,
                           accessMethod=None,
@@ -932,7 +923,7 @@ def targetsAccessListShow(interactive=False,
 *      ======[[elisp:(org-cycle)][Fold]]====== targetsAccessListGet  (CMND)
 """
 
-@icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def targetsAccessListGet(interactive=False,
                          targetFqdn=None,
                          accessMethod=None,
@@ -947,7 +938,7 @@ def targetsAccessListGet(interactive=False,
     try: icm.callableEntryEnhancer(type='cmnd')
     except StopIteration:  return
 
-    G = icm.IcmGlobalContext()
+    G = cs.globalContext.get()
     icmRunArgs = G.icmRunArgsGet()
     #icmParamDict = G.icmParamDictGet()
 
@@ -960,7 +951,7 @@ def targetsAccessListGet(interactive=False,
 
     if interactive == True:
         if not len(icmRunArgs.cmndArgs) == 0:
-            try:  icm.EH_runTime('Bad Number Of cmndArgs')
+            try:  b_io.eh.runTime('Bad Number Of cmndArgs')
             except RuntimeError:  return
 
         if icmRunArgs.targetFqdn:
@@ -992,7 +983,7 @@ def targetsAccessListGet(interactive=False,
 
     # Check For cmndArgs and stdin and  Add Them To cmndTargets
     for thisCmndArg in icmRunArgs.cmndArgs:
-        icm.TM_here(thisCmndArg)
+        b_io.tm.here(thisCmndArg)
         cmndPathTargets.append(thisCmndArg)
 
     # NOTYET: Check For TargetParams and Add Them To cmndTargets
@@ -1000,12 +991,12 @@ def targetsAccessListGet(interactive=False,
     tl = TARGET_List()
     targetList = tl.targetListGet()
 
-    #icm.icm.TM_here(targetList)
+    #icm.b_io.tm.here(targetList)
 
     for thisTarget in targetList:
         targetType = thisTarget.targetType()
         if targetType != 'bxp':
-            icm.EH_problem_usageError(targetType)
+            b_io.eh.problem_usageError(targetType)
             continue
         dnType = thisTarget.dnType()
         #dnQualifier = thisTarget.dnQualifier()
@@ -1014,7 +1005,7 @@ def targetsAccessListGet(interactive=False,
         if dnType == 'path':
             cmndPathTargets.append(dnBase)            
         else:
-            icm.EH_problem_usageError(dnType)            
+            b_io.eh.problem_usageError(dnType)            
 
     # for thisPathTarget in cmndPathTargets:
     #     print thisPathTarget
@@ -1027,7 +1018,7 @@ def targetsAccessListGet(interactive=False,
 *      ======[[elisp:(org-cycle)][Fold]]====== T_Param_List Get  (CMND)
 """
 
-@icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def targetParamsListGet(interactive=False):
     """ Returns a list of path to targetSpecifiers.
         If interactive args have been specified, an ephemera targetPathSpecifier
@@ -1038,12 +1029,12 @@ def targetParamsListGet(interactive=False):
     try: icm.callableEntryEnhancer(type='cmnd')
     except StopIteration:  return
 
-    G = icm.IcmGlobalContext()
+    G = cs.globalContext.get()
     icmRunArgs = G.icmRunArgsGet()
     
     if interactive == True:
         if not len(icmRunArgs.cmndArgs) == 0:
-            try:  icm.EH_runTime('Bad Number Of cmndArgs')
+            try:  b_io.eh.runTime('Bad Number Of cmndArgs')
             except RuntimeError:  return
 
     tpl = Target_Param_List()
@@ -1056,7 +1047,7 @@ def targetParamsListGet(interactive=False):
 *      ======[[elisp:(org-cycle)][Fold]]====== T_Param_List Show (CMND)
 """
 
-@icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def targetParamsListShow(interactive=False):
     """ Calls targetsAccessListGet and prints the results. """
     try: icm.callableEntryEnhancer(type='cmnd')
@@ -1081,7 +1072,7 @@ def targetParamsListShow(interactive=False):
 *      ======[[elisp:(org-cycle)][Fold]]====== targetBaseGet (CMND)
 """
 
-@icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def targetBaseGet(interactive=False,    # Both Non-Interactive and Interactive
                   targetElem=None,
                   collective="int",
@@ -1092,13 +1083,13 @@ def targetBaseGet(interactive=False,    # Both Non-Interactive and Interactive
     try: icm.callableEntryEnhancer(type='cmnd')
     except StopIteration:  return
 
-    G = icm.IcmGlobalContext()
+    G = cs.globalContext.get()
     icmRunArgs = G.icmRunArgsGet()
     #icmParamDict = G.icmParamDictGet()
 
     if interactive == True:
         if not len(icmRunArgs.cmndArgs) == 0:
-            try:  icm.EH_runTime('Bad Number Of cmndArgs')
+            try:  b_io.eh.runTime('Bad Number Of cmndArgs')
             except RuntimeError:  return
 
         if icmRunArgs.collective: collective = icmRunArgs.collective
@@ -1118,7 +1109,7 @@ def targetBaseGet(interactive=False,    # Both Non-Interactive and Interactive
 
     
 
-####+BEGIN: bx:icm:python:section :title "End Of Editable Text"
+####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :title " ~End Of Editable Text~ "
 """
 *  [[elisp:(beginning-of-buffer)][Top]] ################ [[elisp:(blee:ppmm:org-mode-toggle)][Nat]] [[elisp:(delete-other-windows)][(1)]]    *End Of Editable Text*  [[elisp:(org-cycle)][| ]]  [[elisp:(org-show-subtree)][|=]] 
 """

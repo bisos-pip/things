@@ -1,2 +1,0 @@
-BISOS (ByStar Internet Services OS) Things Library contains Abstractions Of Things For GOSSONOT (Generalized Open-Source Self Organizing Network Of Things)
-
