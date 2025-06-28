@@ -43,7 +43,7 @@ def longDescription():
 # b:py3:pypi:setup/version Arguments  :forSys t :forPyPi t :constant "666"
 ####+BEGIN: b:py3:pypi:setup/version :comment "Auto Detected"
 
-# ./pypiUploadVer DID NOT exist -- forPypiVersion=0.41 -- forLocalVersion=0.4 -- constant=NA
+# ./pypiUploadVer DID NOT exist -- forPypiVersion=0.42 -- forLocalVersion=0.4 -- constant=NA
 def pkgVersion():
         return '0.4'
 
@@ -56,6 +56,7 @@ requires = [
 "bisos",
 "bisos.b",
 "bisos.common",
+"setuptools==75.8.0",
 ]
 ####+END:
 
